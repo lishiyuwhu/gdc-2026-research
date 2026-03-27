@@ -1,56 +1,50 @@
 "use client";
 
+import React from "react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { gameDesignCases } from "@/lib/content";
 
-const typeColors: Record<string, string> = {
-  Tech: "bg-red-50 text-red-600 border-red-100",
-  Design: "bg-blue-50 text-blue-600 border-blue-100",
-  Indie: "bg-purple-50 text-purple-600 border-purple-100",
-  Narrative: "bg-orange-50 text-orange-600 border-orange-100",
-  Marketing: "bg-stone-50 text-stone-600 border-stone-200",
+const typeStyles: Record<string, React.CSSProperties> = {
+  Tech: { background: '#fef2f2', color: '#dc2626', borderColor: '#fecaca' },
+  Design: { background: '#eff6ff', color: '#2563eb', borderColor: '#bfdbfe' },
+  Indie: { background: '#faf5ff', color: '#9333ea', borderColor: '#e9d5ff' },
+  Narrative: { background: '#fff7ed', color: '#ea580c', borderColor: '#fed7aa' },
+  Marketing: { background: '#f4f4f5', color: '#525252', borderColor: '#d4d4d8' },
 };
 
 export default function GameDesign() {
   return (
     <main>
       <Nav />
-      <div className="pt-24 pb-24">
-        <div className="bg-white border-b border-stone-200 py-16">
-          <div className="max-w-4xl mx-auto px-6">
-            <p className="section-label">Game Design Cases</p>
-            <h1 className="section-title mb-4">游戏设计案例</h1>
-            <p className="text-stone-500 text-lg">
-              GDC 2026 最值得关注的设计与创意分享，涵盖 AAA 大作到独立游戏
-            </p>
+      <div style={{ paddingTop: '56px' }}>
+        <div style={{ background: '#fafafa', borderBottom: '1px solid #e4e4e7' }}>
+          <div className="container py-16">
+            <p className="section-eyebrow">Game Design Cases</p>
+            <h1 className="text-headline mb-3">游戏设计案例</h1>
+            <p className="text-[#666] text-base">GDC 2026 最值得关注的设计与创意分享</p>
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-6 mt-16">
-          <div className="space-y-8">
+        <div className="container py-16">
+          <div className="space-y-6">
             {gameDesignCases.map((c, i) => (
               <div key={i} className="card p-8">
-                <div className="flex flex-wrap items-center gap-2 mb-5">
-                  <span className={`text-xs font-bold px-3 py-1 rounded-full border ${typeColors[c.type] || typeColors.Design}`}>
-                    {c.type}
-                  </span>
-                  {c.tags.map(t => (
-                    <span key={t} className="tag tag-muted">{t}</span>
-                  ))}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded border" style={typeStyles[c.type] || typeStyles.Design}>{c.type}</span>
+                  {c.tags.map(t => <span key={t} className="tag tag-muted">{t}</span>)}
                 </div>
-
-                <div className="grid md:grid-cols-3 gap-6 mb-6">
+                <div className="grid-3 gap-8">
                   <div className="md:col-span-2">
-                    <h2 className="font-display font-black text-2xl text-stone-900 mb-1">{c.title}</h2>
-                    <p className="text-sm text-[#DC2626] font-semibold mb-1">{c.speaker}</p>
-                    <p className="text-xs text-stone-400 mb-4">{c.company}</p>
-                    <p className="text-stone-600 leading-relaxed">{c.body}</p>
+                    <h2 className="text-xl font-bold mb-1">{c.title}</h2>
+                    <p className="text-sm text-[#dc2626] font-medium mb-1">{c.speaker}</p>
+                    <p className="text-xs text-[#999] mb-5">{c.company}</p>
+                    <p className="text-sm text-[#666] leading-relaxed">{c.body}</p>
                   </div>
-                  <div className="bg-stone-50 rounded-xl p-5 border border-stone-200">
-                    <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">核心洞察</p>
-                    <p className="text-sm font-semibold text-stone-800 leading-relaxed mb-3">{c.keyInsight}</p>
-                    <p className="text-stone-500 text-sm italic">"{c.summary}"</p>
+                  <div style={{ background: '#fafafa', borderRadius: '8px', border: '1px solid #e4e4e7', padding: '20px' }}>
+                    <p className="text-xs text-[#999] uppercase tracking-wider font-semibold mb-2">核心洞察</p>
+                    <p className="text-sm font-semibold text-[#000] leading-relaxed mb-3">{c.keyInsight}</p>
+                    <p className="text-xs text-[#999] italic">"{c.summary}"</p>
                   </div>
                 </div>
               </div>

@@ -1,111 +1,112 @@
 "use client";
 
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
-import { industryStats, keynotes, awards, gameDesignCases, summitCommunities, gdcNights, techTrends } from "@/lib/content";
+import React from "react";
 import Link from "next/link";
-import { ArrowRight, TrendingUp, Users, Zap, Shield, Gamepad2, Code, Trophy, Mic, Calendar, Music } from "lucide-react";
+import { navItems } from "@/lib/content";
+import { industryStats, keynotes, awards, gameDesignCases, summitCommunities, gdcNights } from "@/lib/content";
+import { ArrowRight } from "lucide-react";
 
-const categoryColors: Record<string, string> = {
-  Tech: "bg-red-50 text-red-600 border-red-100",
-  Design: "bg-blue-50 text-blue-600 border-blue-100",
-  Indie: "bg-purple-50 text-purple-600 border-purple-100",
-  Narrative: "bg-orange-50 text-orange-600 border-orange-100",
-  Marketing: "bg-stone-50 text-stone-600 border-stone-200",
+const categoryStyles: Record<string, React.CSSProperties> = {
+  Tech: { background: '#fef2f2', color: '#dc2626', borderColor: '#fecaca' },
+  Design: { background: '#eff6ff', color: '#2563eb', borderColor: '#bfdbfe' },
+  Indie: { background: '#faf5ff', color: '#9333ea', borderColor: '#e9d5ff' },
+  Narrative: { background: '#fff7ed', color: '#ea580c', borderColor: '#fed7aa' },
+  Marketing: { background: '#f4f4f5', color: '#525252', borderColor: '#d4d4d8' },
 };
-
-const statColors: Record<string, string> = {
-  red: "text-red-600 bg-red-50 border-red-100",
-  blue: "text-blue-600 bg-blue-50 border-blue-100",
-  green: "text-green-600 bg-green-50 border-green-100",
-  orange: "text-orange-600 bg-orange-50 border-orange-100",
-  gray: "text-stone-600 bg-stone-50 border-stone-200",
-};
-
-const iconMap: Record<string, any> = { TrendingUp, Users, Zap, Shield, Gamepad2, Code, Trophy, Mic, Calendar, Music };
 
 export default function Home() {
   return (
     <main>
-      <Nav />
+      {/* ── Dark Navigation ── */}
+      <header className="nav-dark fixed top-0 left-0 right-0 z-50">
+        <div className="container flex items-center justify-between h-14">
+          <div className="flex items-center gap-8">
+            <div className="flex items-center gap-2">
+              <svg width="20" height="20" viewBox="0 0 116 100" fill="none">
+                <path d="M57.5 0L115 100H0L57.5 0Z" fill="white"/>
+              </svg>
+              <span className="text-white font-bold text-sm tracking-tight">GDC 2026</span>
+            </div>
+            <nav className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                <Link key={item.href} href={item.href} className="nav-link">
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+          <Link href="/industry-report" className="text-white/60 hover:text-white text-sm font-medium transition-colors">
+            开始阅读 →
+          </Link>
+        </div>
+      </header>
 
-      {/* Hero */}
-      <section className="relative min-h-screen flex flex-col justify-center pt-16 overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-50" />
-        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-red-100 via-orange-50 to-transparent rounded-full blur-3xl opacity-60 -translate-y-1/3" />
-        <div className="absolute bottom-20 left-0 w-[350px] h-[350px] bg-gradient-to-tr from-stone-100 to-transparent rounded-full blur-3xl opacity-70" />
-
-        <div className="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
-          <div className="max-w-3xl">
-            <span className="tag tag-red animate-fade-up opacity-0 mb-6 inline-flex">
-              📋 深度调研报告 · 2026年3月
-            </span>
-            <h1 className="font-display font-black text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-6 animate-fade-up opacity-0 delay-1">
-              GDC 2026
-              <br />
-              <span className="text-[#DC2626]">深度调研</span>
+      {/* ── Hero ── */}
+      <section className="pt-14">
+        <div className="hero-gradient">
+          <div className="container py-24 md:py-36">
+            <p className="section-eyebrow mb-6 animate-fade-up">GDC Festival of Gaming 2026 · 深度调研</p>
+            <h1 className="text-display mb-6 animate-fade-up delay-1" style={{ maxWidth: '700px' }}>
+              GDC 2026<br />
+              <span style={{ color: '#666' }}>深度调研报告</span>
             </h1>
-            <p className="text-lg md:text-xl text-stone-500 font-medium mb-8 max-w-xl leading-relaxed animate-fade-up opacity-0 delay-2">
-              覆盖 GDC 2026 行业报告、主题演讲、游戏设计案例、技术趋势、奖项全解析
-              <br />基于 2,300+ 行业专业人士数据
+            <p className="text-lg text-[#666] mb-10 animate-fade-up delay-2" style={{ maxWidth: '520px', lineHeight: 1.7 }}>
+              基于 GDC 2026 官方内容、Game Developer 现场报道、行业现状调查（2,300+样本）汇编
             </p>
-            <div className="flex flex-wrap gap-3 animate-fade-up opacity-0 delay-3">
-              <Link href="/industry-report" className="btn-primary">
-                行业报告
-                <ArrowRight className="w-4 h-4" />
+            <div className="flex flex-wrap gap-3 animate-fade-up delay-3">
+              <Link href="/industry-report" className="btn-black">
+                行业报告 <ArrowRight size={14} />
               </Link>
-              <Link href="/keynotes" className="btn-outline">主题演讲</Link>
+              <Link href="/keynotes" className="btn-outline">
+                主题演讲
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 bg-white border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-12">
-            <p className="section-label">Key Numbers</p>
-            <h2 className="section-title">行业核心数据</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {/* ── Stats ── */}
+      <section className="page-section" style={{ background: '#fafafa' }}>
+        <div className="container">
+          <p className="section-eyebrow">核心数据</p>
+          <h2 className="text-headline mb-12">GDC 2026 关键数字</h2>
+          <div className="grid-3">
             {industryStats.map((stat, i) => (
-              <div key={i} className={`stat-card text-center ${statColors[stat.color]}`}>
-                <div className="font-display font-black text-2xl md:text-3xl mb-1">{stat.value}</div>
-                <div className="text-sm font-semibold leading-tight mb-1">{stat.label}</div>
-                <div className="text-xs opacity-70">{stat.sublabel}</div>
+              <div key={i} className="card p-6">
+                <div className="stat-number mb-2">{stat.value}</div>
+                <div className="font-semibold text-sm mb-1">{stat.label}</div>
+                <div className="text-xs text-[#999]">{stat.sublabel}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Keynotes Preview */}
-      <section className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ── Keynotes ── */}
+      <section className="page-section">
+        <div className="container">
           <div className="flex items-end justify-between mb-12">
             <div>
-              <p className="section-label">Keynotes</p>
-              <h2 className="section-title">主题演讲</h2>
-              <p className="text-stone-500 mt-2">GDC 40周年，小岛秀夫5年来首次登台</p>
+              <p className="section-eyebrow">Keynotes</p>
+              <h2 className="text-headline">主题演讲</h2>
             </div>
-            <Link href="/keynotes" className="hidden md:flex items-center gap-1 text-sm font-semibold text-[#DC2626] hover:gap-2 transition-all">
-              查看全部 <ArrowRight className="w-4 h-4" />
+            <Link href="/keynotes" className="text-sm font-medium text-[#666] hover:text-black transition-colors hidden md:flex items-center gap-1">
+              全部 <ArrowRight size={13} />
             </Link>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid-2 gap-4">
             {keynotes.map((k, i) => (
               <div key={i} className={`card p-8 ${i === 0 ? 'md:col-span-2' : ''}`}>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="tag tag-red">
-                    <Calendar className="w-3 h-3" /> {k.day}
-                  </span>
-                  {k.highlight && <span className="tag tag-dark">头条演讲</span>}
+                <div className="flex flex-wrap gap-2 mb-5">
+                  <span className="tag tag-dark">{k.day}</span>
+                  {k.tags.slice(0, 2).map(t => (
+                    <span key={t} className="tag tag-muted">{t}</span>
+                  ))}
                 </div>
-                <h3 className="font-display font-bold text-2xl md:text-3xl text-stone-900 mb-1">{k.speaker}</h3>
-                <p className="text-[#DC2626] font-semibold text-lg mb-1">{k.title}</p>
-                <p className="text-stone-400 text-sm font-medium mb-4">{k.subtitle}</p>
-                <p className="text-stone-600 leading-relaxed mb-5">{k.description}</p>
-                <blockquote className="border-l-3 border-[#DC2626] pl-4 italic text-stone-500 text-sm">
+                <h3 className="text-xl font-bold mb-1">{k.speaker}</h3>
+                <p className="text-[#666] font-medium text-sm mb-3">{k.title}</p>
+                <p className="text-[#999] text-sm leading-relaxed mb-5">{k.description}</p>
+                <blockquote className="border-l border-[#e4e4e7] pl-4 text-sm text-[#666] italic">
                   "{k.quote}"
                 </blockquote>
               </div>
@@ -114,195 +115,198 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Awards Preview */}
-      <section className="py-24 bg-stone-50 border-y border-stone-200">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ── Awards ── */}
+      <section className="page-section" style={{ background: '#fafafa' }}>
+        <div className="container">
           <div className="flex items-end justify-between mb-12">
             <div>
-              <p className="section-label">Awards</p>
-              <h2 className="section-title">🏆 奖项中心</h2>
-              <p className="text-stone-500 mt-2">GDCA & IGF 2026 完整获奖名单</p>
+              <p className="section-eyebrow">Awards</p>
+              <h2 className="text-headline">GDCA & IGF 2026</h2>
             </div>
-            <Link href="/awards" className="hidden md:flex items-center gap-1 text-sm font-semibold text-[#DC2626] hover:gap-2 transition-all">
-              完整名单 <ArrowRight className="w-4 h-4" />
+            <Link href="/awards" className="text-sm font-medium text-[#666] hover:text-black transition-colors hidden md:flex items-center gap-1">
+              完整名单 <ArrowRight size={13} />
             </Link>
           </div>
-
-          {/* GOTY */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-8 mb-6 shadow-sm">
-            <div className="flex items-center gap-2 mb-4">
-              <Trophy className="w-5 h-5 text-yellow-500" />
-              <span className="text-yellow-600 font-bold text-sm uppercase tracking-wider">Game of the Year</span>
-            </div>
+          <div className="card p-8 mb-4">
+            <p className="text-xs text-[#999] uppercase tracking-wider font-semibold mb-3">Game of the Year</p>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
-                <h3 className="font-display font-black text-3xl md:text-4xl text-stone-900 mb-1">
-                  {awards.gdca.gameOfYear.game}
-                </h3>
-                <p className="text-stone-500 font-medium">{awards.gdca.gameOfYear.dev}</p>
+                <h3 className="text-3xl font-bold tracking-tight mb-1">{awards.gdca.gameOfYear.game}</h3>
+                <p className="text-[#999] text-sm">{awards.gdca.gameOfYear.dev}</p>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-1">
                 {[1,2,3,4,5].map(n => (
-                  <span key={n} className="text-lg" title={`+${awards.gdca.gameOfYear.awards - n + 1} awards`}>🏆</span>
+                  <span key={n} style={{ fontSize: '18px' }}>🏆</span>
                 ))}
-                <span className="text-sm font-bold text-yellow-600 self-center ml-1">
-                  狂揽 {awards.gdca.gameOfYear.awards} 项大奖
+                <span className="text-sm font-bold text-[#dc2626] self-center ml-2">
+                  {awards.gdca.gameOfYear.awards}项大奖
                 </span>
               </div>
             </div>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl border border-stone-200 p-6">
-              <p className="text-stone-400 text-xs uppercase tracking-wider mb-2">IGF Grand Prize</p>
-              <p className="font-display font-bold text-xl text-stone-900">{awards.igf.grandPrize}</p>
-              <p className="text-stone-500 text-sm mt-1">策略游戏 · Fellow Traveller</p>
-            </div>
-            <div className="bg-white rounded-xl border border-stone-200 p-6">
-              <p className="text-stone-400 text-xs uppercase tracking-wider mb-2">Lifetime Achievement</p>
-              <p className="font-display font-bold text-xl text-stone-900">{awards.lifetime[0].name}</p>
-              <p className="text-stone-500 text-sm mt-1">{awards.lifetime[0].desc}</p>
-            </div>
+          <div className="grid-3 gap-4">
+            {awards.gdca.categories.slice(3, 9).map((c, i) => (
+              <div key={i} className="card p-4 flex items-center justify-between">
+                <span className="text-sm text-[#999]">{c.name}</span>
+                <span className="text-sm font-semibold text-right">{c.winner}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Game Design Preview */}
-      <section className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ── Game Design ── */}
+      <section className="page-section">
+        <div className="container">
           <div className="flex items-end justify-between mb-12">
             <div>
-              <p className="section-label">Game Design</p>
-              <h2 className="section-title">游戏设计案例</h2>
-              <p className="text-stone-500 mt-2">GDC 2026 最值得关注的设计与创意分享</p>
+              <p className="section-eyebrow">Game Design</p>
+              <h2 className="text-headline">游戏设计案例</h2>
             </div>
-            <Link href="/game-design" className="hidden md:flex items-center gap-1 text-sm font-semibold text-[#DC2626] hover:gap-2 transition-all">
-              全部案例 <ArrowRight className="w-4 h-4" />
+            <Link href="/game-design" className="text-sm font-medium text-[#666] hover:text-black transition-colors hidden md:flex items-center gap-1">
+              全部 <ArrowRight size={13} />
             </Link>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid-3 gap-4">
             {gameDesignCases.map((c, i) => (
-              <div key={i} className="card p-6 group">
-                <div className="flex items-center justify-between mb-4">
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${categoryColors[c.type] || categoryColors.Design}`}>
+              <div key={i} className="card p-6">
+                <div className="mb-4">
+                  <span className="text-xs font-semibold px-2 py-1 rounded border" style={categoryStyles[c.type] || categoryStyles.Design}>
                     {c.type}
                   </span>
                 </div>
-                <h3 className="font-display font-bold text-lg text-stone-900 mb-1">{c.title}</h3>
-                <p className="text-sm text-[#DC2626] font-semibold mb-1">{c.speaker}</p>
-                <p className="text-xs text-stone-400 mb-3">{c.company}</p>
-                <p className="text-sm text-stone-600 leading-relaxed mb-4">{c.summary}</p>
-                <div className="border-t border-stone-100 pt-3">
-                  <p className="text-xs font-semibold text-stone-500 mb-2">💡 {c.keyInsight}</p>
+                <h3 className="text-title mb-1">{c.title}</h3>
+                <p className="text-xs text-[#999] mb-3">{c.speaker} · {c.company}</p>
+                <p className="text-sm text-[#666] leading-relaxed">{c.summary}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Tech Trends ── */}
+      <section className="page-section" style={{ background: '#fafafa' }}>
+        <div className="container">
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <p className="section-eyebrow">Tech Trends</p>
+              <h2 className="text-headline">技术趋势</h2>
+            </div>
+            <Link href="/tech-trends" className="text-sm font-medium text-[#666] hover:text-black transition-colors hidden md:flex items-center gap-1">
+              全部 <ArrowRight size={13} />
+            </Link>
+          </div>
+          <div className="grid-2 gap-4">
+            {[
+              { icon: "🤖", title: "AI担忧创历史新高", data: "52%", sub: "认为AI产生负面影响", trend: "+34pp vs 2024" },
+              { icon: "🎮", title: "Unreal Engine 领先", data: "42%", sub: "最常用游戏引擎", trend: "Unity 30% / Godot 11%" },
+              { icon: "🕹️", title: "Steam Deck 崛起", data: "28%", sub: "为 Deck 开发/优化", trend: "第4大目标平台" },
+              { icon: "🏗️", title: "工会化支持率", data: "82%", sub: "美国开发者", trend: "创历史新高" },
+            ].map((t, i) => (
+              <div key={i} className="card p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <span className="text-2xl">{t.icon}</span>
+                  <span className="text-xs font-semibold px-2 py-1 rounded border border-[#e4e4e7] text-[#999]">{t.trend}</span>
                 </div>
+                <div className="stat-number mb-1" style={{ fontSize: '32px' }}>{t.data}</div>
+                <div className="font-semibold text-sm mb-0.5">{t.title}</div>
+                <div className="text-xs text-[#999]">{t.sub}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Tech Trends + Summit Grid */}
-      <section className="py-24 bg-stone-900 text-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12">
+      {/* ── Summit Communities ── */}
+      <section className="page-section">
+        <div className="container">
+          <div className="flex items-end justify-between mb-12">
             <div>
-              <p className="section-label text-red-400">Tech Trends</p>
-              <h2 className="section-title text-white mb-4">技术趋势</h2>
-              <p className="text-stone-400 mb-8">AI争议持续、引擎格局演变、新兴平台崛起</p>
-              <div className="space-y-4">
-                {techTrends.slice(0, 3).map((t, i) => (
-                  <div key={i} className="p-5 bg-stone-800 rounded-xl border border-stone-700">
-                    <div className="flex items-start justify-between mb-2">
-                      <span className="text-xl">{t.icon}</span>
-                      <span className={`text-xs font-bold px-2 py-1 rounded ${
-                        t.trend.includes('↑') ? 'bg-green-500/20 text-green-400' :
-                        t.trend.includes('↓') ? 'bg-red-500/20 text-red-400' :
-                        'bg-stone-700 text-stone-300'
-                      }`}>
-                        {t.trend}
-                      </span>
-                    </div>
-                    <h3 className="font-semibold text-white mb-1">{t.title}</h3>
-                    <p className="text-sm text-stone-400">{t.data}</p>
-                    <p className="text-xs text-stone-500 mt-2">{t.detail}</p>
-                  </div>
-                ))}
-              </div>
-              <Link href="/tech-trends" className="btn-outline mt-6 border-stone-600 text-stone-300 hover:border-white hover:text-white hover:bg-transparent">
-                查看全部趋势 <ArrowRight className="w-4 h-4" />
-              </Link>
+              <p className="section-eyebrow">Summit</p>
+              <h2 className="text-headline">16个社区</h2>
             </div>
-
-            <div>
-              <p className="section-label text-orange-400">Summit Communities</p>
-              <h2 className="section-title text-white mb-4">16个社区</h2>
-              <p className="text-stone-400 mb-8">GDC 按专业领域划分的专题频道，覆盖游戏开发全领域</p>
-              <div className="grid grid-cols-2 gap-2">
-                {summitCommunities.map((s, i) => (
-                  <div key={i} className="p-3 bg-stone-800 rounded-lg border border-stone-700 hover:bg-stone-700 transition-colors cursor-pointer">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-base">{s.icon}</span>
-                      <span className="font-semibold text-white text-sm">{s.name}</span>
-                    </div>
-                    <p className="text-xs text-stone-500">{s.zh}</p>
-                  </div>
-                ))}
+            <Link href="/summit" className="text-sm font-medium text-[#666] hover:text-black transition-colors hidden md:flex items-center gap-1">
+              详解 <ArrowRight size={13} />
+            </Link>
+          </div>
+          <div className="grid-4 gap-3">
+            {summitCommunities.map((s, i) => (
+              <div key={i} className="card p-5">
+                <div className="text-2xl mb-2">{s.icon}</div>
+                <div className="font-semibold text-sm mb-0.5">{s.name}</div>
+                <div className="text-xs text-[#999] mb-1">{s.zh}</div>
+                <div className="text-xs text-[#bbb] leading-relaxed">{s.desc.split('、')[0]}</div>
               </div>
-              <Link href="/summit" className="btn-outline mt-6 border-stone-600 text-stone-300 hover:border-white hover:text-white hover:bg-transparent">
-                16个社区详解 <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* GDC Nights */}
-      <section className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-12">
-            <p className="section-label">GDC Nights</p>
-            <h2 className="section-title">社交活动</h2>
-            <p className="text-stone-500 mt-2">40周年庆特别活动，每晚与同行交流的绝佳机会</p>
+      {/* ── GDC Nights ── */}
+      <section className="page-section" style={{ background: '#fafafa' }}>
+        <div className="container">
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <p className="section-eyebrow">Events</p>
+              <h2 className="text-headline">GDC Nights</h2>
+            </div>
+            <Link href="/events" className="text-sm font-medium text-[#666] hover:text-black transition-colors hidden md:flex items-center gap-1">
+              全部活动 <ArrowRight size={13} />
+            </Link>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid-4 gap-4">
             {gdcNights.map((n, i) => (
-              <div key={i} className="card p-6 text-center">
-                <div className="text-4xl mb-4">{n.icon}</div>
-                <h3 className="font-display font-bold text-stone-900 mb-1">{n.name}</h3>
-                <p className="text-sm text-stone-400 mb-1">{n.place}</p>
-                <p className="text-xs text-[#DC2626] font-semibold mb-3">{n.date}</p>
-                <p className="text-sm text-stone-600 leading-relaxed">{n.desc}</p>
+              <div key={i} className="card p-6">
+                <div className="text-2xl mb-3">{n.icon}</div>
+                <h3 className="font-bold text-sm mb-1">{n.name}</h3>
+                <p className="text-xs text-[#999] mb-2">{n.place}</p>
+                <p className="text-xs font-semibold text-[#dc2626] mb-2">{n.date}</p>
+                <p className="text-xs text-[#bbb] leading-relaxed">{n.desc.slice(0, 50)}…</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 bg-[#DC2626] text-white">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-display font-black text-4xl md:text-5xl mb-4">
-            深入阅读全部调研内容
-          </h2>
-          <p className="text-red-100 text-lg mb-8">
-            从行业报告到游戏设计，从技术趋势到奖项全解析——<br />
-            GDC 2026 最完整的深度调研
+      {/* ── CTA ── */}
+      <section style={{ background: '#000', color: '#fff' }}>
+        <div className="container py-24 text-center">
+          <h2 className="text-display mb-4" style={{ color: '#fff' }}>深入阅读</h2>
+          <p className="text-[#999] text-lg mb-10" style={{ maxWidth: '400px', margin: '0 auto 40px' }}>
+            行业报告、主题演讲、技术趋势——最完整的 GDC 2026 调研
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/industry-report" className="px-6 py-3 bg-white text-[#DC2626] font-bold rounded-lg hover:bg-red-50 transition-colors">
+            <Link href="/industry-report" className="btn-black">
               行业报告
             </Link>
-            <Link href="/keynotes" className="px-6 py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-colors">
+            <Link href="/keynotes" className="btn-outline" style={{ color: '#fff', borderColor: '#333' }}>
               主题演讲
             </Link>
-            <Link href="/awards" className="px-6 py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-colors">
-              奖项中心
+            <Link href="/awards" className="btn-outline" style={{ color: '#fff', borderColor: '#333' }}>
+              奖项
             </Link>
           </div>
         </div>
       </section>
 
-      <Footer />
+      {/* ── Footer ── */}
+      <footer style={{ background: '#000', borderTop: '1px solid #222' }}>
+        <div className="container py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 116 100" fill="none">
+              <path d="M57.5 0L115 100H0L57.5 0Z" fill="white"/>
+            </svg>
+            <span className="text-white/60 text-sm">GDC 2026 调研报告</span>
+          </div>
+          <p className="text-white/40 text-xs">
+            基于 GDC 官方内容、Game Developer 报道、行业现状调查（2,300+样本）
+          </p>
+          <div className="flex gap-4">
+            <a href="https://gdconf.com" target="_blank" className="text-white/40 hover:text-white text-xs transition-colors">GDC</a>
+            <a href="https://www.gamedeveloper.com" target="_blank" className="text-white/40 hover:text-white text-xs transition-colors">Game Developer</a>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
